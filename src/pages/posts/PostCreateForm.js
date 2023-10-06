@@ -5,19 +5,16 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import Alert from "react-bootstrap/Alert";
-import Image from "react-bootstrap/Image";
-
-import Asset from "../../components/Asset";
 
 import Upload from "../../assets/upload.png";
 
 import styles from "../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-
-import { useHistory } from "react-router";
+import Asset from "../../components/Asset";
+import { Image } from "react-bootstrap";
 import { axiosReq } from "../../api/axiosDefaults";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function PostCreateForm() {
   const [errors, setErrors] = useState({});
@@ -30,6 +27,7 @@ function PostCreateForm() {
   const { title, content, image } = postData;
 
   const imageInput = useRef(null);
+  /*   const history = useHistory(); */
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -52,17 +50,13 @@ function PostCreateForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-
     formData.append("title", title);
     formData.append("content", content);
     formData.append("image", imageInput.current.files[0]);
 
     try {
-      console.log("step 1");
       const { data } = await axiosReq.post("/posts/", formData);
-      console.log("step2");
       history.push(`/posts/${data.id}`);
-      console.log("step3");
     } catch (err) {
       console.log(err);
       if (err.response?.status !== 401) {
@@ -82,31 +76,19 @@ function PostCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
-      {errors?.title?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
       <Form.Group>
         <Form.Label>Content</Form.Label>
         <Form.Control
           as="textarea"
-          rows={6}
           name="content"
+          rows={6}
           value={content}
           onChange={handleChange}
         />
       </Form.Group>
-      {errors?.content?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
       <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        onClick={() => history.goBack()}
+        onClick={() => {}}
       >
         cancel
       </Button>
@@ -117,7 +99,7 @@ function PostCreateForm() {
   );
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onChange={handleSubmit}>
       <Row>
         <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
           <Container
@@ -157,12 +139,6 @@ function PostCreateForm() {
                 ref={imageInput}
               />
             </Form.Group>
-            {errors?.image?.map((message, idx) => (
-              <Alert variant="warning" key={idx}>
-                {message}
-              </Alert>
-            ))}
-
             <div className="d-md-none">{textFields}</div>
           </Container>
         </Col>
