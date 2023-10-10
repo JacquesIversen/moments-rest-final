@@ -12,9 +12,8 @@ import styles from "../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function PostEditForm() {
   const [errors, setErrors] = useState({});
@@ -35,11 +34,13 @@ function PostEditForm() {
       try {
         const { data } = await axiosReq.get(`/posts/${id}/`);
         const { title, content, image, is_owner } = data;
+
         is_owner ? setPostData({ title, content, image }) : history.push("/");
       } catch (err) {
         console.log(err);
       }
     };
+
     handleMount();
   }, [history, id]);
 
@@ -122,7 +123,7 @@ function PostEditForm() {
         cancel
       </Button>
       <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-        Save
+        save
       </Button>
     </div>
   );
