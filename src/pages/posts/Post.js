@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "../../styles/Post.module.css";
+import { useCurrentUser } from "../../context/CurrentUserContext";
 import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
-import { useCurrentUser } from "../../context/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
 

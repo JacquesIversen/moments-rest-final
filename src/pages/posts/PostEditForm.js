@@ -41,7 +41,7 @@ function PostEditForm() {
       }
     };
     handleMount();
-  }, [history.id]);
+  }, [history, id]);
 
   const handleChange = (event) => {
     setPostData({
