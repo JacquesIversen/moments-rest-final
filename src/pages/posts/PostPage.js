@@ -9,12 +9,13 @@ import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import Post from "./Post";
 import Comment from "../comments/Comment";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Asset from "../../components/Asset";
-import { fetchMoreData } from "../../utils/utils";
 
 import CommentCreateForm from "../comments/CommentCreateForm";
 import { useCurrentUser } from "../../context/CurrentUserContext";
+
+import InfiniteScroll from "react-infinite-scroll-component";
+import Asset from "../../components/Asset";
+import { fetchMoreData } from "../../utils/utils";
 
 function PostPage() {
   const { id } = useParams();
